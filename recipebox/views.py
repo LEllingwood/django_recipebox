@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from recipebox.models import Recipe, Author
 
 def index(request):
@@ -18,7 +18,7 @@ def recipe(request, key):
 
 def author(request, key):
 
-    authors = Author.objects.get(pk=key)
+    authors = Author.objects.get(id=key)
     recipes = Recipe.objects.filter(author=authors)
     book = {'authors': authors, 'recipes': recipes}
     html = "author.html"
