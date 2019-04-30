@@ -1,6 +1,6 @@
-<div>Easy Recipes</div>
+<h1>Cool Recipes</h1>
 {% for recipe in recipes %}
     <li>
-<a>{{ recipe.title }}</a>
+<a href="recipe/{{ recipe.id }}">{{ recipe.title }}</a>
     </li>
 {% endfor %}

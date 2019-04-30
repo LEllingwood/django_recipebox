@@ -1,1 +1,5 @@
-<h1>{{ recpies.title }}</h1>
+<h1>{{ recipes.title }}</h1>
+<p>By: <a href="/author/{{ recipes.author.id }}">{{ recipes.author.name }}</a></p>
+<p>Description: {{ recipes.description }}</p>
+<p>Time Required: {{ recipes.time_required }}</p>
+<p>Instructions: {{ recipes.instructions }}</p>

@@ -6,6 +6,9 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=300)
 
+    def __str__(self):
+        return self.name
+
 class Recipe(models.Model):
     title = models.CharField(max_length=50)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
