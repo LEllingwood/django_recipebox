@@ -10,6 +10,6 @@ class RecipeForm(forms.Form):
 
 class AuthorForm(forms.Form):
     name = forms.CharField(max_length=75)
-    # choices = [(a.id, a.user.username) for a in Author.objects.all()]
-    # user = forms.ChoiceField(choices=choices)
+    choices = [(a.id, a.user.username) for a in Author.objects.all()]
+    user = forms.ChoiceField(choices=choices)
     bio = forms.CharField(widget=forms.Textarea)
