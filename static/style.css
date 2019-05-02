@@ -1,0 +1,22 @@
+h1 {
+    color: lightskyblue;
+}
+
+li {
+    list-style-type: upper-roman;
+}
+
+body {
+    text-align: center;
+    background-image: url(https://media.giphy.com/media/TxVVB6PfWMjE4/giphy.gif);
+    color: white;
+}
+
+a {
+    color: indianred;
+}
+
+#main {
+    margin-top: 150px;
+}
+

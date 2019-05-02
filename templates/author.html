@@ -1,3 +1,7 @@
+{% load static from staticfiles %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<div id="main">
 <h1>{{ authors.name }}</h1>
     <p>Biography: {{ authors.bio }}</p>
     <p>Recipes:</p>
@@ -6,4 +10,4 @@
     {% endfor %}
     <br>
     <a href="/">Home</a>
-
+</div>

@@ -1,3 +1,6 @@
+{% load static from staticfiles %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<div id="main">
 <h1>Cool Recipes</h1>
 {% for recipe in recipes %}
     <li>
@@ -5,5 +8,6 @@
     </li>
 {% endfor %}
 <br>
-<h2><a href="/recipeform">Submit a Recipe</a></h2>
+<h2><a href="/recipeform">Create a Recipe</a></h2>
 <h2><a href="/authorform">Create an Author</a></h2>
+</div>
