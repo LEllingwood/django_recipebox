@@ -3,11 +3,17 @@
 <div id="main">
 <h1>Cool Recipes</h1>
 {% for recipe in recipes %}
-    <li>
+    <li id="roman">
 <a href="recipe/{{ recipe.id }}">{{ recipe.title }}</a>
     </li>
 {% endfor %}
 <br>
+<h1>Chefs</h1>
+{% for author in authors %}
+    <li>
+<a href="author/{{ author.id }}">{{ author.name }}</a>
+    </li>
+{% endfor %}
 <h2><a href="/recipeform">Create a Recipe</a></h2>
 <h2><a href="/authorform">Create an Author</a></h2>
 </div>

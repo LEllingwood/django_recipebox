@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from recipebox.models import Recipe, Author
 from recipebox.forms import RecipeForm, AuthorForm
+from django.contrib.auth.models import User
 
 
 
@@ -9,8 +10,9 @@ def index(request):
     html = "index.html"
 
     recipes = Recipe.objects.all()
+    authors = Author.objects.all()
 
-    return render(request, html, {'recipes': recipes})
+    return render(request, html, {'recipes': recipes, 'authors': authors})
 
 def thanks(request):
 
@@ -59,7 +61,13 @@ def create_author(request):
         form = AuthorForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            print(data)
+            new_user = User.objects.create_user(data['name'], data['email'], data['password'])
+            new_user.save()
+            Author.objects.create(
+                name=data['name'],
+                user=new_user,
+                bio=data['bio']
+            )
             render(request, 'authorform.html')
             return HttpResponseRedirect('/thanks')
     else:
