@@ -1,8 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from recipebox.models import Recipe, Author
 from recipebox.forms import RecipeForm, AuthorForm, SignUpForm, LoginForm
-from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -11,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 def homepage(request):
     html = "homepage.html"
     return render(request, html)
+
 
 def index(request):
 
@@ -108,8 +108,12 @@ def dj_login(request):
             username = form.data['username']
             password = form.data['password']
             user = authenticate(username=username, password=password)
-            login(request, user)
-            return HttpResponseRedirect('/index')
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/index')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+def dj_logout(request):
+    logout(request)
