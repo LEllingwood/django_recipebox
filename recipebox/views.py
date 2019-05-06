@@ -1,9 +1,16 @@
 from django.shortcuts import render, HttpResponseRedirect
 from recipebox.models import Recipe, Author
-from recipebox.forms import RecipeForm, AuthorForm
+from recipebox.forms import RecipeForm, AuthorForm, SignUpForm, LoginForm
+from django.contrib import messages
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
+
+def homepage(request):
+    html = "homepage.html"
+    return render(request, html)
 
 def index(request):
 
@@ -36,6 +43,7 @@ def author(request, key):
 
     return render(request, html, book)
 
+@login_required()
 def post_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST)
@@ -55,9 +63,9 @@ def post_recipe(request):
 
     return render(request, 'recipeform.html', {'form': form})
 
-
+@login_required()
 def create_author(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         form = AuthorForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -70,8 +78,38 @@ def create_author(request):
             )
             render(request, 'authorform.html')
             return HttpResponseRedirect('/thanks')
+        else:
+            form = AuthorForm()
+
+        return render(request, 'authorform.html', {'form': form})
+
+
+def create_user(request):
+    global form
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            new_user = User.objects.create_user(data['username'], data['email'], data['password'])
+            new_user.save()
+            login(request, new_user)
+            render(request, 'signup.html')
+            return HttpResponseRedirect('/index')
     else:
-        form = AuthorForm()
+        form = SignUpForm()
 
-    return render(request, 'authorform.html', {'form': form})
+    return render(request, 'signup.html', {'form': form})
 
+def dj_login(request):
+    global form
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.data['username']
+            password = form.data['password']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return HttpResponseRedirect('/index')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
