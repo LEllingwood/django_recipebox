@@ -66,7 +66,6 @@ def post_recipe(request):
 
 @login_required()
 def create_author(request):
-    if request.method == 'POST':
         form = AuthorForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
