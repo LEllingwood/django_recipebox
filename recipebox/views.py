@@ -4,6 +4,7 @@ from recipebox.forms import RecipeForm, AuthorForm, SignUpForm, LoginForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 
@@ -65,7 +66,7 @@ def post_recipe(request):
 
 @login_required()
 def create_author(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         form = AuthorForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -110,10 +111,12 @@ def dj_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/index')
+                return HttpResponseRedirect('/')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
 def dj_logout(request):
     logout(request)
+    messages.info(request, 'You have successfully logged out')
+    return HttpResponseRedirect('/')
