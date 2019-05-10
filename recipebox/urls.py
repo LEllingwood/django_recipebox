@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from recipebox.views import index, recipe, author, post_recipe, \
-    thanks, create_author, create_user, dj_login, homepage, dj_logout
+from recipebox.views import index, recipe, author, post_recipe, thanks, create_author, create_user, dj_login, homepage, dj_logout
 from recipebox.models import Author, Recipe
 
 admin.site.register(Author)

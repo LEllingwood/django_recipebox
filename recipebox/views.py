@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.shortcuts import redirect
 
 
 
@@ -105,14 +106,17 @@ def dj_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
+            next = request.GET.get('next', '/')
             username = form.data['username']
             password = form.data['password']
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/')
-    else:
-        form = LoginForm()
+            if next:
+                return redirect(next)
+            else:
+                return redirect('/')
+    form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
 def dj_logout(request):

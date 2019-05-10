@@ -6,6 +6,8 @@
     {% csrf_token %}
     {% if request.user.is_staff %}
     {{ form.as_p }}
+        {% else %}
+        <p>You must be an administrator to use this page</p>
     {% endif %}
     <input type="submit" value="Submit">
 </form>
