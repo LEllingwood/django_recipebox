@@ -1,0 +1,15 @@
+{% load static from staticfiles %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<h1>Create an Author</h1>
+<form action="/authorform/" method="post">
+    {% csrf_token %}
+    {% if request.user.is_staff %}
+    {{ form.as_p }}
+        {% else %}
+        <p>You must be an administrator to use this page</p>
+    {% endif %}
+    <input type="submit" value="Submit">
+</form>
+
+<a href="/">Return Home</a>

@@ -1,0 +1,25 @@
+{% load static from staticfiles %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<br>
+{% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+<h2><a href="/signup">Create a User</a></h2>
+<h2><a href="/login">Log In</a></h2>
+<h2><a href="/recipeform">Create a Recipe</a></h2>
+{% for recipe in recipes %}
+    <li id="roman">
+<a href="recipe/{{ recipe.id }}">{{ recipe.title }}</a>
+    </li>
+{% endfor %}
+<br>
+<h2><a href="/authorform">Create a Chef</a></h2>
+{% for author in authors %}
+    <li>
+<a href="author/{{ author.id }}">{{ author.name }}</a>
+    </li>
+{% endfor %}
+<br>
+<h2><a href="/logout">logout</a></h2>

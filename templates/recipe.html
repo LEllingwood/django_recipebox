@@ -1,0 +1,12 @@
+{% load static from staticfiles %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<div id="main">
+<h1>{{ recipes.title }}</h1>
+<p>By: <a href="/author/{{ recipes.author.id }}">{{ recipes.author.name }}</a></p>
+<p>Description: {{ recipes.description }}</p>
+<p>Time Required: {{ recipes.time_required }}</p>
+<p>Instructions: {{ recipes.instructions }}</p>
+<br>
+<a href="/">Home</a>
+</div>
